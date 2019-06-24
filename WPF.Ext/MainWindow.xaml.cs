@@ -17,7 +17,8 @@ namespace WPF.Ext
             ViewsCollection = new ObservableCollection<UserControl>
             {
                 new TabControlView(),
-                new FilterableCollection()
+                new FilterableCollectionView(),
+                new CheckBoxTestView()
             };
 
             InitializeComponent();

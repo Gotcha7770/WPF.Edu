@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="LightGray" Padding="40">
-        <TabControl Style="{StaticResource TabControlStyle}">
+        <TabControl>
 
         </TabControl>
     </Border>

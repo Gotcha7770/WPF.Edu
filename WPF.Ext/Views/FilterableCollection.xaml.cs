@@ -5,11 +5,11 @@ namespace WPF.Ext.Views
     /// <summary>
     /// Interaction logic for FilterableCollection.xaml
     /// </summary>
-    public partial class FilterableCollection : UserControl
+    public partial class FilterableCollectionView : UserControl
     {
-        public FilterableCollection()
+        public FilterableCollectionView()
         {
-            Name = typeof(FilterableCollection).Name;
+            Name = typeof(FilterableCollectionView).Name;
             InitializeComponent();
         }
     }
