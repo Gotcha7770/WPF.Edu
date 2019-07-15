@@ -69,7 +69,7 @@ namespace WPF.Ext.ViewModels
         public ICommand CheckedCommand { get; }
 
 
-        public void SetChecked()
+        private void SetChecked()
         {
             CheckChildNodes(this, IsChecked.Value);
             UpdateParentCheckedState(Parent);
