@@ -38,6 +38,12 @@
     <Reference Include="DynamicData, Version=6.10.0.2604, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicData.6.10.0.2604\lib\net46\DynamicData.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -91,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\CollectionViewSourceExt.cs" />
     <Compile Include="Interfaces\IFilter.cs" />
     <Compile Include="MarkupExtensions\FilterExtension.cs" />
     <Compile Include="MarkupExtensions\PropertyFilter.cs" />
@@ -100,6 +107,9 @@
     </Compile>
     <Compile Include="Views\FilterableCollection.xaml.cs">
       <DependentUpon>FilterableCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistogramExample.xaml.cs">
+      <DependentUpon>HistogramExample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabControlView.xaml.cs">
       <DependentUpon>TabControlView.xaml</DependentUpon>
@@ -125,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FilterableCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HistogramExample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

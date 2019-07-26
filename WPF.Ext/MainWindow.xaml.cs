@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using WPF.Ext.Views;
@@ -18,7 +18,8 @@ namespace WPF.Ext
             {
                 new TabControlView(),
                 new FilterableCollectionView(),
-                new CheckBoxTestView()
+                new CheckBoxTestView(),
+                new HistogramExampleView()
             };
 
             InitializeComponent();
