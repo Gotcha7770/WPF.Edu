@@ -1,2 +1,1 @@
-# WPF.Ext
-Some extensions for WPF
+# WPF.Edu
