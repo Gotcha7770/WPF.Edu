@@ -99,6 +99,7 @@
     </ApplicationDefinition>
     <Compile Include="Controls\Badged.cs" />
     <Compile Include="Controls\Card.cs" />
+    <Compile Include="Controls\ResizableControl.cs" />
     <Compile Include="Data\CollectionViewSourceExt.cs" />
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="Views\CheckBoxTest.xaml.cs">
@@ -112,6 +113,9 @@
     </Compile>
     <Compile Include="Views\HistogramExample.xaml.cs">
       <DependentUpon>HistogramExample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResizerTest.xaml.cs">
+      <DependentUpon>ResizerTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabControlView.xaml.cs">
       <DependentUpon>TabControlView.xaml</DependentUpon>
@@ -136,6 +140,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\ResizableStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HistogramExample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResizerTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

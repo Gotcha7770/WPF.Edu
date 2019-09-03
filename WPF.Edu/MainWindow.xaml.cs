@@ -20,7 +20,8 @@ namespace WPF.Ext
                 new FilterableCollectionView(),
                 new CheckBoxTestView(),
                 new HistogramExampleView(),
-                new ControlsTestView()
+                new ControlsTestView(),
+                new ResizerTest()
             };
 
             InitializeComponent();
