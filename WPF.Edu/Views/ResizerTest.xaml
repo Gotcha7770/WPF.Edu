@@ -20,6 +20,12 @@
             <controls:ResizableControl>
                 <Border Width="100" Background="LightGray"/>
             </controls:ResizableControl>
+            <controls:ResizableControl>
+                <Border Width="100" Background="LightGray"/>
+            </controls:ResizableControl>
+            <controls:ResizableControl>
+                <Border Width="100" Background="LightGray"/>
+            </controls:ResizableControl>
         </ListBox.Items>
         <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">

@@ -21,7 +21,8 @@ namespace WPF.Ext
                 new CheckBoxTestView(),
                 new HistogramExampleView(),
                 new ControlsTestView(),
-                new ResizerTest()
+                new ResizerTest(),
+                new ComboboxTest(),
             };
 
             InitializeComponent();

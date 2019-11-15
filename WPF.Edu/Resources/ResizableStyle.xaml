@@ -32,7 +32,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ResizableControl">
                     <Grid>
-                        <ContentPresenter Content="{TemplateBinding Content}"
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Content="{TemplateBinding Content}"
                                           ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
