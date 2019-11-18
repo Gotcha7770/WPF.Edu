@@ -18,9 +18,9 @@ namespace WPF.Edu.Controls
 
         static ResizableControl()
         {
-            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragStartedEvent, new DragStartedEventHandler(ResizableControl.OnDragStarted));
-            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragDeltaEvent, new DragDeltaEventHandler(ResizableControl.OnDragDelta));
-            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragCompletedEvent, new DragCompletedEventHandler(ResizableControl.OnDragCompleted));
+            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragStartedEvent, new DragStartedEventHandler(OnDragStarted));
+            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragDeltaEvent, new DragDeltaEventHandler(OnDragDelta));
+            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragCompletedEvent, new DragCompletedEventHandler(OnDragCompleted));
         }
 
         public override void OnApplyTemplate()
@@ -31,19 +31,24 @@ namespace WPF.Edu.Controls
             _thumb = GetTemplateChild(ThumbPartName) as FrameworkElement;
         }
 
-        private static void OnDragCompleted(object sender, DragCompletedEventArgs e)
+        private static void OnDragCompleted(object sender, DragCompletedEventArgs args)
         {
-            throw new NotImplementedException();
+            //(sender as ResizableControl)?.OnDragCompleted(args);
         }
 
-        private static void OnDragDelta(object sender, DragDeltaEventArgs e)
+        private static void OnDragDelta(object sender, DragDeltaEventArgs args)
         {
-            throw new NotImplementedException();
+            (sender as ResizableControl)?.OnDragDelta(args);
+        }
+
+        private void OnDragDelta(DragDeltaEventArgs args)
+        {
+            _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + args.HorizontalChange);
         }
 
         private static void OnDragStarted(object sender, DragStartedEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

@@ -32,6 +32,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ResizableControl">
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
                         <ContentPresenter Name="PART_ContentPresenter"
                                           Content="{TemplateBinding Content}"
                                           ContentStringFormat="{TemplateBinding ContentStringFormat}"
@@ -41,7 +45,7 @@
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                        <Thumb Name="PART_Thumb" Style="{StaticResource RightResizerThumbStyle}"/>
+                        <Thumb Name="PART_Thumb" Grid.Column="1" Style="{StaticResource RightResizerThumbStyle}"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
