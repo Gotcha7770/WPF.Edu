@@ -102,12 +102,11 @@
     <Compile Include="Controls\Card.cs" />
     <Compile Include="Controls\ResizableControl.cs" />
     <Compile Include="Data\CollectionViewSourceExt.cs" />
+    <Compile Include="Utils\DataPiping.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="Views\CheckBoxTest.xaml.cs">
       <DependentUpon>CheckBoxTest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ComboboxTest.xaml.cs">
-      <DependentUpon>ComboboxTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlsTest.xaml.cs">
       <DependentUpon>ControlsTest.xaml</DependentUpon>
@@ -153,10 +152,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CheckBoxTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ComboboxTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

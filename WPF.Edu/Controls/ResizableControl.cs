@@ -9,18 +9,47 @@ namespace WPF.Edu.Controls
     [TemplatePart(Name = ThumbPartName, Type = typeof(Thumb))]
     public class ResizableControl : ContentControl
     {
-
         public const string ContentPresenterPartName = "PART_ContentPresenter";
         public const string ThumbPartName = "PART_Thumb";
 
         protected FrameworkElement _contentPresenter;
         protected FrameworkElement _thumb;
 
+        public double StartWidth
+        {
+            get { return (double)GetValue(StartWidthProperty); }
+            set { SetValue(StartWidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty StartWidthProperty =
+            DependencyProperty.Register("StartWidth", typeof(double), typeof(ResizableControl), new PropertyMetadata());
+
+        public double StartHeight
+        {
+            get { return (double)GetValue(StartHeightProperty); }
+            set { SetValue(StartHeightProperty, value); }
+        }
+
+        public static readonly DependencyProperty StartHeightProperty =
+            DependencyProperty.Register("StartHeight", typeof(double), typeof(ResizableControl), new PropertyMetadata());
+
+
+
+        public Orientation Orientation
+        {
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
+        }
+
+        public static readonly DependencyProperty OrientationProperty =
+            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ResizableControl), new PropertyMetadata());
+
+
         static ResizableControl()
         {
-            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragStartedEvent, new DragStartedEventHandler(OnDragStarted));
+            //EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragStartedEvent, new DragStartedEventHandler(OnDragStarted));
             EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragDeltaEvent, new DragDeltaEventHandler(OnDragDelta));
-            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragCompletedEvent, new DragCompletedEventHandler(OnDragCompleted));
+            //EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragCompletedEvent, new DragCompletedEventHandler(OnDragCompleted));
         }
 
         public override void OnApplyTemplate()
@@ -29,11 +58,11 @@ namespace WPF.Edu.Controls
 
             _contentPresenter = GetTemplateChild(ContentPresenterPartName) as FrameworkElement;
             _thumb = GetTemplateChild(ThumbPartName) as FrameworkElement;
-        }
 
-        private static void OnDragCompleted(object sender, DragCompletedEventArgs args)
-        {
-            //(sender as ResizableControl)?.OnDragCompleted(args);
+            if(!(double.IsNaN(StartWidth) || StartWidth <= 0))
+                _contentPresenter.Width = StartWidth;
+            if (!(double.IsNaN(StartHeight) || StartHeight <= 0))
+                _contentPresenter.Height = StartHeight;
         }
 
         private static void OnDragDelta(object sender, DragDeltaEventArgs args)
@@ -43,12 +72,10 @@ namespace WPF.Edu.Controls
 
         private void OnDragDelta(DragDeltaEventArgs args)
         {
-            _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + args.HorizontalChange);
-        }
-
-        private static void OnDragStarted(object sender, DragStartedEventArgs e)
-        {
-            //throw new NotImplementedException();
+            if (Orientation == Orientation.Horizontal)
+                _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + args.HorizontalChange);
+            else
+                _contentPresenter.Height = Math.Max(0, _contentPresenter.ActualHeight + args.VerticalChange);
         }
     }
 }

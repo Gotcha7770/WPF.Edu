@@ -1,17 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WPF.Edu.ViewModels;
 
 namespace WPF.Edu.Views
 {
@@ -25,5 +14,12 @@ namespace WPF.Edu.Views
             Name = typeof(ResizerTest).Name;
             InitializeComponent();
         }
+
+        public ObservableCollection<TestViewModel> Items { get; } = new ObservableCollection<TestViewModel>
+        {
+            new TestViewModel{ Name = "TestVM1", Width = 100, Height = 100},
+            new TestViewModel{ Name = "TestVM2", Width = 200, Height = 200},
+            new TestViewModel{ Name = "TestVM3", Width = 300, Height = 300}
+        };
     }
 }
