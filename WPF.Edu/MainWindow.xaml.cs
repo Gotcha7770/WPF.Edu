@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using WPF.Edu.Views;
 
 namespace WPF.Ext
@@ -21,10 +22,16 @@ namespace WPF.Ext
                 new CheckBoxTestView(),
                 new HistogramExampleView(),
                 new ControlsTestView(),
-                new ResizerTest()
+                new ResizerTest(),
+                new CommandTest()
             };
 
             InitializeComponent();
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            bool executed = true;
         }
     }
 }

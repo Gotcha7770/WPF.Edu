@@ -108,6 +108,9 @@
     <Compile Include="Views\CheckBoxTest.xaml.cs">
       <DependentUpon>CheckBoxTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CommandTest.xaml.cs">
+      <DependentUpon>CommandTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ControlsTest.xaml.cs">
       <DependentUpon>ControlsTest.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CheckBoxTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommandTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
