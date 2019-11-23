@@ -33,8 +33,6 @@ namespace WPF.Edu.Controls
         public static readonly DependencyProperty StartHeightProperty =
             DependencyProperty.Register("StartHeight", typeof(double), typeof(ResizableControl), new PropertyMetadata());
 
-
-
         public Orientation Orientation
         {
             get { return (Orientation)GetValue(OrientationProperty); }
@@ -47,9 +45,7 @@ namespace WPF.Edu.Controls
 
         static ResizableControl()
         {
-            //EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragStartedEvent, new DragStartedEventHandler(OnDragStarted));
             EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragDeltaEvent, new DragDeltaEventHandler(OnDragDelta));
-            //EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragCompletedEvent, new DragCompletedEventHandler(OnDragCompleted));
         }
 
         public override void OnApplyTemplate()
@@ -59,9 +55,9 @@ namespace WPF.Edu.Controls
             _contentPresenter = GetTemplateChild(ContentPresenterPartName) as FrameworkElement;
             _thumb = GetTemplateChild(ThumbPartName) as FrameworkElement;
 
-            if(!(double.IsNaN(StartWidth) || StartWidth <= 0))
+            if (StartWidth > 0)
                 _contentPresenter.Width = StartWidth;
-            if (!(double.IsNaN(StartHeight) || StartHeight <= 0))
+            if (StartHeight > 0)
                 _contentPresenter.Height = StartHeight;
         }
 
