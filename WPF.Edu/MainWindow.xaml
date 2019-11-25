@@ -3,14 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF.Ext"
+        xmlns:behaviors="clr-namespace:WPF.Edu.Behaviors"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="MainWindow"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        Title="MainWindow">
 
-    <Window.CommandBindings>
+    <Window.DataContext>
+        <Binding RelativeSource="{RelativeSource Self}"/>
+    </Window.DataContext>
+
+    <!--<Window.CommandBindings>
         <CommandBinding Command="Delete" Executed="CommandBinding_Executed"/>
-    </Window.CommandBindings>
+    </Window.CommandBindings>-->
+
+    <i:Interaction.Behaviors>
+        <behaviors:RoutedCommandBinding RoutedCommand="Delete" Command="{Binding DeleteCommand}"/>
+    </i:Interaction.Behaviors>
     
     <Grid>
         <Grid.ColumnDefinitions>

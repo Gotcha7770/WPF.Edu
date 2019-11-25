@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ReactiveUI;
 using WPF.Edu.Views;
 
 namespace WPF.Ext
@@ -26,8 +27,12 @@ namespace WPF.Ext
                 new CommandTest()
             };
 
+            DeleteCommand = ReactiveCommand.Create<object>(parameter => CommandBinding_Executed(parameter, null));
+
             InitializeComponent();
         }
+
+        public ICommand DeleteCommand { get; }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
