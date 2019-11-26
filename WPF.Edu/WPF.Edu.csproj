@@ -101,12 +101,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utils\DependencyPropertyExtensions.cs" />
     <Compile Include="Behaviors\RoutedCommandBinding.cs" />
+    <Compile Include="Behaviors\DataPipeBehavior.cs" />
     <Compile Include="Controls\Badged.cs" />
     <Compile Include="Controls\Card.cs" />
     <Compile Include="Controls\ResizableControl.cs" />
     <Compile Include="Data\CollectionViewSourceExt.cs" />
-    <Compile Include="Utils\DataPiping.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="Views\CheckBoxTest.xaml.cs">

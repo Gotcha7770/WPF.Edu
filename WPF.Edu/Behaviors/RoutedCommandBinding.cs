@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Xaml.Behaviors;
@@ -32,8 +27,6 @@ namespace WPF.Edu.Behaviors
 
         protected override void OnAttached()
         {
-            base.OnAttached();
-
             var binding = new CommandBinding(RoutedCommand, HandleExecuted, HandleCanExecute);
             AssociatedObject.CommandBindings.Add(binding);
         }
@@ -41,8 +34,10 @@ namespace WPF.Edu.Behaviors
         /// <summary> Proxy to the current Command.CanExecute(object). </summary>
         private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs args)
         {
-            args.CanExecute = Command?.CanExecute(args.Parameter) != null;
-            //e.Handled = true;
+            if (!args.Handled)
+            {
+                args.CanExecute = Command?.CanExecute(args.Parameter) != null;
+            }
         }
 
         /// <summary> Proxy to the current Command.Execute(object). </summary>
@@ -54,8 +49,6 @@ namespace WPF.Edu.Behaviors
                 if (AssociatedObject.Parent is UIElement parent)
                     RoutedCommand.Execute(args.Parameter, parent);
             }
-                        
-            //e.Handled = true;
         }
     }
 }
