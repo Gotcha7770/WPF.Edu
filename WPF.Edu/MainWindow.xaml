@@ -12,10 +12,6 @@
         <Binding RelativeSource="{RelativeSource Self}"/>
     </Window.DataContext>
 
-    <!--<Window.CommandBindings>
-        <CommandBinding Command="Delete" Executed="CommandBinding_Executed"/>
-    </Window.CommandBindings>-->
-
     <i:Interaction.Behaviors>
         <behaviors:RoutedCommandBinding RoutedCommand="Delete" Command="{Binding DeleteCommand}"/>
     </i:Interaction.Behaviors>

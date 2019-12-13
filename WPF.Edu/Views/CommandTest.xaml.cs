@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ReactiveUI;
@@ -43,9 +42,6 @@ namespace WPF.Edu.Views
             {
                 Items.Remove(SecondSelectedElement);
             }
-
-            //if(args != null && !args.Handled)
-            //    ApplicationCommands.Delete.Execute(null, Parent as UIElement);
         }
     }
 }
