@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace WPF.Edu.Views
 {
@@ -16,6 +17,7 @@ namespace WPF.Edu.Views
     {
         private Predicate<object> _filter;
         private IComparer _comparer;
+        //private readonly object _lock = new object();
 
         public FilterableCollectionView()
         {
@@ -36,9 +38,7 @@ namespace WPF.Edu.Views
                 "Text3"
             };
 
-            //Filter = x => x is string s && s == "Text1";
-
-            //Comparer = new CustomSorter();
+            //BindingOperations.EnableCollectionSynchronization(Items, _lock);
 
             InitializeComponent();
 
@@ -51,14 +51,33 @@ namespace WPF.Edu.Views
             Task.Run(() =>
             {
                 Thread.Sleep(6000);
-                Dispatcher.Invoke(() => Items.Add("Text2"));
+                //Dispatcher.Invoke(() => Items.Add("Text2"));
+                Items.Add("Text2");
+
+                Thread.Sleep(2000);
+                Items.Add("Text3");
+
+                Thread.Sleep(2000);
+                Items.Add("Text4");
             });
 
             Task.Run(() =>
             {
                 Thread.Sleep(8000);
-                Filter = x => x is string s && s == "Text1";
+                Filter = FilterMethod;
+                //Filter = x => x is string s && s == "Text1";
+
+                Thread.Sleep(2000);
+                OnPropertyChanged(nameof(Filter));
+
+                Thread.Sleep(2000);
+                OnPropertyChanged(nameof(Filter));
             });
+        }
+
+        public bool FilterMethod(object value)
+        {
+            return value is string s && s == "Text1";
         }
 
         public ObservableCollection<string> Items { get; private set; }

@@ -21,6 +21,7 @@
 
             <data:CollectionViewSourceExt x:Key="ItemsSourceExt"
                                           Source="{Binding Items}"
+                                          IsSynchronized="True"
                                           FilterDescription="{Binding Filter}"
                                           OrderDescription="{Binding Comparer}"/>
 
