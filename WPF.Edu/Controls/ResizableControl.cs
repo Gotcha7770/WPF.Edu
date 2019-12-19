@@ -15,14 +15,28 @@ namespace WPF.Edu.Controls
         protected FrameworkElement _contentPresenter;
         protected FrameworkElement _thumb;
 
-        public double StartWidth
+        public double ContentWidth
         {
-            get { return (double)GetValue(StartWidthProperty); }
-            set { SetValue(StartWidthProperty, value); }
+            get { return (double)GetValue(ContentWidthProperty); }
+            set { SetValue(ContentWidthProperty, value); }
         }
 
-        public static readonly DependencyProperty StartWidthProperty =
-            DependencyProperty.Register("StartWidth", typeof(double), typeof(ResizableControl), new PropertyMetadata());
+        public static readonly DependencyProperty ContentWidthProperty =
+            DependencyProperty.Register("ContentWidth", typeof(double), typeof(ResizableControl), new PropertyMetadata(OnContentWidthChanged));
+
+        private static void OnContentWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ResizableControl resizer && e.NewValue is double value)
+            {
+                resizer.OnContentWidthChanged(value);
+            }
+        }
+
+        private void OnContentWidthChanged(double value)
+        {
+            if (IsInitialized)
+                _contentPresenter.Width = value;
+        }
 
         public double StartHeight
         {
@@ -55,8 +69,8 @@ namespace WPF.Edu.Controls
             _contentPresenter = GetTemplateChild(ContentPresenterPartName) as FrameworkElement;
             _thumb = GetTemplateChild(ThumbPartName) as FrameworkElement;
 
-            if (StartWidth > 0)
-                _contentPresenter.Width = StartWidth;
+            if (ContentWidth > 0)
+                _contentPresenter.Width = ContentWidth;
             if (StartHeight > 0)
                 _contentPresenter.Height = StartHeight;
         }

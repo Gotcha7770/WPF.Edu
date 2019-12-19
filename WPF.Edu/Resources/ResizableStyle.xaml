@@ -1,6 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:WPF.Edu.Controls">
+                    xmlns:controls="clr-namespace:WPF.Edu.Controls"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:behaviors="clr-namespace:WPF.Edu.Behaviors">
 
     <Style x:Key="RightResizerThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -44,7 +46,11 @@
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <!--<i:Interaction.Behaviors>
+                                <behaviors:DataPipeBehavior Source="ActualWidth" Target="{Binding RelativeSource={RelativeSource AncestorType=controls:ResizableControl}, Path=ContentWidth, Mode=OneWayToSource}"/>
+                            </i:Interaction.Behaviors>-->
+                        </ContentPresenter>
                         <Thumb Name="PART_Thumb"
                                Style="{StaticResource RightResizerThumbStyle}"/>
                     </Grid>
