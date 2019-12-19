@@ -47,9 +47,6 @@
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                            <!--<i:Interaction.Behaviors>
-                                <behaviors:DataPipeBehavior Source="ActualWidth" Target="{Binding RelativeSource={RelativeSource AncestorType=controls:ResizableControl}, Path=ContentWidth, Mode=OneWayToSource}"/>
-                            </i:Interaction.Behaviors>-->
                         </ContentPresenter>
                         <Thumb Name="PART_Thumb"
                                Style="{StaticResource RightResizerThumbStyle}"/>

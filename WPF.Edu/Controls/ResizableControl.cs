@@ -38,14 +38,28 @@ namespace WPF.Edu.Controls
                 _contentPresenter.Width = value;
         }
 
-        public double StartHeight
+        public double ContentHeight
         {
-            get { return (double)GetValue(StartHeightProperty); }
-            set { SetValue(StartHeightProperty, value); }
+            get { return (double)GetValue(ContentHeightProperty); }
+            set { SetValue(ContentHeightProperty, value); }
         }
 
-        public static readonly DependencyProperty StartHeightProperty =
-            DependencyProperty.Register("StartHeight", typeof(double), typeof(ResizableControl), new PropertyMetadata());
+        public static readonly DependencyProperty ContentHeightProperty =
+            DependencyProperty.Register("ContentHeight", typeof(double), typeof(ResizableControl), new PropertyMetadata(OnContentHightChanged));
+
+        private static void OnContentHightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ResizableControl resizer && e.NewValue is double value)
+            {
+                resizer.OnContentHightChanged(value);
+            }
+        }
+
+        private void OnContentHightChanged(double value)
+        {
+            if (IsInitialized)
+                _contentPresenter.Height = value;
+        }
 
         public Orientation Orientation
         {
@@ -71,8 +85,8 @@ namespace WPF.Edu.Controls
 
             if (ContentWidth > 0)
                 _contentPresenter.Width = ContentWidth;
-            if (StartHeight > 0)
-                _contentPresenter.Height = StartHeight;
+            if (ContentHeight > 0)
+                _contentPresenter.Height = ContentHeight;
         }
 
         private static void OnDragDelta(object sender, DragDeltaEventArgs args)

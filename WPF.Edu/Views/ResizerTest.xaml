@@ -37,7 +37,7 @@
 
             <DataTemplate x:Key="VerticalTestVMTemplate" DataType="TestViewModel">
                 <controls:ResizableControl Orientation="Vertical"
-                                           StartHeight="{Binding Height, Mode=OneTime}">
+                                           ContentHeight="{Binding Height, Mode=OneTime}">
                     <Border x:Name="Border" Background="DodgerBlue"
                             Width="300">
                         <i:Interaction.Behaviors>
