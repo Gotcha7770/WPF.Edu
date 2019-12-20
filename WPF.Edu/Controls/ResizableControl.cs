@@ -1,7 +1,11 @@
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Input;
+using WPF.Edu.Utils;
 
 namespace WPF.Edu.Controls
 {
@@ -9,9 +13,10 @@ namespace WPF.Edu.Controls
     [TemplatePart(Name = ThumbPartName, Type = typeof(Thumb))]
     public class ResizableControl : ContentControl
     {
+        private Point _startPoint;
+
         public const string ContentPresenterPartName = "PART_ContentPresenter";
         public const string ThumbPartName = "PART_Thumb";
-
         protected FrameworkElement _contentPresenter;
         protected FrameworkElement _thumb;
 
@@ -22,7 +27,10 @@ namespace WPF.Edu.Controls
         }
 
         public static readonly DependencyProperty ContentWidthProperty =
-            DependencyProperty.Register("ContentWidth", typeof(double), typeof(ResizableControl), new PropertyMetadata(OnContentWidthChanged));
+            DependencyProperty.Register("ContentWidth",
+                                        typeof(double),
+                                        typeof(ResizableControl),
+                                        new FrameworkPropertyMetadata(default(double), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentWidthChanged));
 
         private static void OnContentWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -45,7 +53,7 @@ namespace WPF.Edu.Controls
         }
 
         public static readonly DependencyProperty ContentHeightProperty =
-            DependencyProperty.Register("ContentHeight", typeof(double), typeof(ResizableControl), new PropertyMetadata(OnContentHightChanged));
+            DependencyProperty.Register("ContentHeight", typeof(double), typeof(ResizableControl), new FrameworkPropertyMetadata(OnContentHightChanged));
 
         private static void OnContentHightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -74,6 +82,17 @@ namespace WPF.Edu.Controls
         static ResizableControl()
         {
             EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragDeltaEvent, new DragDeltaEventHandler(OnDragDelta));
+            EventManager.RegisterClassHandler(typeof(ResizableControl), Thumb.DragStartedEvent, new DragStartedEventHandler(OnDragStarted));
+        }
+
+        private static void OnDragStarted(object sender, DragStartedEventArgs args)
+        {
+            (sender as ResizableControl)?.OnDragStarted(args);
+        }
+
+        private void OnDragStarted(DragStartedEventArgs e)
+        {
+            _startPoint = PointToScreen(Mouse.GetPosition(this));
         }
 
         public override void OnApplyTemplate()
@@ -83,10 +102,27 @@ namespace WPF.Edu.Controls
             _contentPresenter = GetTemplateChild(ContentPresenterPartName) as FrameworkElement;
             _thumb = GetTemplateChild(ThumbPartName) as FrameworkElement;
 
+            var widthDescriptor = DependencyPropertyExtensions.FromProperty<ContentControl>(ActualWidthProperty);
+            widthDescriptor.AddValueChanged(_contentPresenter, OnContentActualWidthChanged);
+
             if (ContentWidth > 0)
                 _contentPresenter.Width = ContentWidth;
             if (ContentHeight > 0)
                 _contentPresenter.Height = ContentHeight;
+        }
+
+        protected override void OnTemplateChanged(ControlTemplate oldTemplate, ControlTemplate newTemplate)
+        {
+            base.OnTemplateChanged(oldTemplate, newTemplate);
+        }
+
+        private void OnContentActualWidthChanged(object sender, EventArgs e)
+        {           
+            var binding = BindingOperations.GetBindingExpression(this, ContentWidthProperty);
+            if (binding != null) //BindingMode???
+            {
+                ContentWidth = _contentPresenter.ActualWidth;
+            }            
         }
 
         private static void OnDragDelta(object sender, DragDeltaEventArgs args)
@@ -96,10 +132,14 @@ namespace WPF.Edu.Controls
 
         private void OnDragDelta(DragDeltaEventArgs args)
         {
+            var currentPoint = PointToScreen(Mouse.GetPosition(this));
+
             if (Orientation == Orientation.Horizontal)
-                _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + args.HorizontalChange);
+                _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + (currentPoint.X - _startPoint.X));
             else
-                _contentPresenter.Height = Math.Max(0, _contentPresenter.ActualHeight + args.VerticalChange);
+                _contentPresenter.Height = Math.Max(0, _contentPresenter.ActualHeight + (currentPoint.Y - _startPoint.Y));
+
+            _startPoint = currentPoint;
         }
     }
 }

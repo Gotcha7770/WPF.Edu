@@ -11,9 +11,19 @@ namespace WPF.Edu.Utils
             return GetDependencyPropertyDescriptor(obj.GetType(), name).DependencyProperty;
         }
 
+        public static DependencyPropertyDescriptor GetDependencyPropertyDescriptor<T>(string name)
+        {
+            return GetDependencyPropertyDescriptor(typeof(T), name);
+        }
+
         public static DependencyPropertyDescriptor GetDependencyPropertyDescriptor(Type objType, string name)
         {
             return DependencyPropertyDescriptor.FromName(name, objType, objType);
+        }
+
+        public static DependencyPropertyDescriptor FromProperty<T>(DependencyProperty dp)
+        {
+            return DependencyPropertyDescriptor.FromProperty(dp, typeof(T));
         }
     }
 }

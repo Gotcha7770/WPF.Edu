@@ -25,9 +25,9 @@
                     <Border x:Name="Border"
                             Background="DodgerBlue"
                             VerticalAlignment="Stretch">
-                        <i:Interaction.Behaviors>
+                        <!--<i:Interaction.Behaviors>
                             <behaviors:DataPipeBehavior Source="ActualWidth" Target="{Binding Width, Mode=OneWayToSource}"/>
-                        </i:Interaction.Behaviors>
+                        </i:Interaction.Behaviors>-->
                         <TextBlock Text="{Binding Name}"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Center"/>
@@ -54,6 +54,24 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Horizontal">
+
+        <ListBox HorizontalAlignment="Left"
+                 Background="Aqua"
+                 BorderBrush="Red"
+                 BorderThickness="2"
+                 ItemTemplate="{StaticResource HorizontalTestVMTemplate}"
+                 ItemsSource="{Binding Items}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel IsItemsHost="True" Orientation="Horizontal" Margin="10"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
 
         <ListBox HorizontalAlignment="Left"
                  Background="Aqua"
