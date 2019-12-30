@@ -25,9 +25,6 @@
                     <Border x:Name="Border"
                             Background="DodgerBlue"
                             VerticalAlignment="Stretch">
-                        <!--<i:Interaction.Behaviors>
-                            <behaviors:DataPipeBehavior Source="ActualWidth" Target="{Binding Width, Mode=OneWayToSource}"/>
-                        </i:Interaction.Behaviors>-->
                         <TextBlock Text="{Binding Name}"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Center"/>
@@ -40,9 +37,6 @@
                                            ContentHeight="{Binding Height, Mode=OneTime}">
                     <Border x:Name="Border" Background="DodgerBlue"
                             Width="300">
-                        <i:Interaction.Behaviors>
-                            <behaviors:DataPipeBehavior Source="ActualHeight" Target="{Binding Height, Mode=OneWayToSource}"/>
-                        </i:Interaction.Behaviors>
                         <TextBlock Text="{Binding Name}"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Center"/>

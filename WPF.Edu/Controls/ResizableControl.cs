@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -87,12 +86,29 @@ namespace WPF.Edu.Controls
 
         private static void OnDragStarted(object sender, DragStartedEventArgs args)
         {
-            (sender as ResizableControl)?.OnDragStarted(args);
+            (sender as ResizableControl)?.OnDragStarted();
         }
 
-        private void OnDragStarted(DragStartedEventArgs e)
+        private void OnDragStarted()
         {
             _startPoint = PointToScreen(Mouse.GetPosition(this));
+        }
+
+        private static void OnDragDelta(object sender, DragDeltaEventArgs args)
+        {
+            (sender as ResizableControl)?.OnDragDelta();
+        }
+
+        private void OnDragDelta()
+        {
+            var currentPoint = PointToScreen(Mouse.GetPosition(this));
+
+            if (Orientation == Orientation.Horizontal)
+                _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + (currentPoint.X - _startPoint.X));
+            else
+                _contentPresenter.Height = Math.Max(0, _contentPresenter.ActualHeight + (currentPoint.Y - _startPoint.Y));
+
+            _startPoint = currentPoint;
         }
 
         public override void OnApplyTemplate()
@@ -119,27 +135,10 @@ namespace WPF.Edu.Controls
         private void OnContentActualWidthChanged(object sender, EventArgs e)
         {           
             var binding = BindingOperations.GetBindingExpression(this, ContentWidthProperty);
-            if (binding != null) //BindingMode???
+            if (binding != null) //BindingMode == TwoWay???
             {
                 ContentWidth = _contentPresenter.ActualWidth;
             }            
-        }
-
-        private static void OnDragDelta(object sender, DragDeltaEventArgs args)
-        {
-            (sender as ResizableControl)?.OnDragDelta(args);
-        }
-
-        private void OnDragDelta(DragDeltaEventArgs args)
-        {
-            var currentPoint = PointToScreen(Mouse.GetPosition(this));
-
-            if (Orientation == Orientation.Horizontal)
-                _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + (currentPoint.X - _startPoint.X));
-            else
-                _contentPresenter.Height = Math.Max(0, _contentPresenter.ActualHeight + (currentPoint.Y - _startPoint.Y));
-
-            _startPoint = currentPoint;
-        }
+        }        
     }
 }
