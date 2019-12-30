@@ -142,6 +142,9 @@
     <Compile Include="Views\ControlsTest.xaml.cs">
       <DependentUpon>ControlsTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DynamicListViewTest.xaml.cs">
+      <DependentUpon>DynamicListViewTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FilterableCollection.xaml.cs">
       <DependentUpon>FilterableCollection.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlsTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DynamicListViewTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

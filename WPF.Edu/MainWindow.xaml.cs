@@ -24,7 +24,9 @@ namespace WPF.Ext
                 new HistogramExampleView(),
                 new ControlsTestView(),
                 new ResizerTest(),
-                new CommandTest()
+                new CommandTest(),
+                new ThumbVsButtonView(),
+                new DynamicListViewTest()
             };
 
             DeleteCommand = ReactiveCommand.Create<object>(parameter => CommandBinding_Executed(parameter, null));
