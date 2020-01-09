@@ -38,7 +38,7 @@ namespace WPF.Edu.Views
                 "Text3"
             };
 
-            //BindingOperations.EnableCollectionSynchronization(Items, _lock);
+            //Filter = FilterMethod;
 
             InitializeComponent();
 
@@ -51,7 +51,6 @@ namespace WPF.Edu.Views
             Task.Run(() =>
             {
                 Thread.Sleep(6000);
-                //Dispatcher.Invoke(() => Items.Add("Text2"));
                 Items.Add("Text2");
 
                 Thread.Sleep(2000);
@@ -65,7 +64,6 @@ namespace WPF.Edu.Views
             {
                 Thread.Sleep(8000);
                 Filter = FilterMethod;
-                //Filter = x => x is string s && s == "Text1";
 
                 Thread.Sleep(2000);
                 OnPropertyChanged(nameof(Filter));

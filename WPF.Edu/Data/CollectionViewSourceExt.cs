@@ -27,9 +27,9 @@ namespace WPF.Edu.Data
         }
 
         public static readonly DependencyProperty OrderDescriptionProperty = DependencyProperty.Register("OrderDescription",
-                                                                                                   typeof(IComparer),
-                                                                                                   typeof(CollectionViewSourceExt),
-                                                                                                   new PropertyMetadata(null, OnOrderDescriptionChanged));
+                                                                                                         typeof(IComparer),
+                                                                                                         typeof(CollectionViewSourceExt),
+                                                                                                         new PropertyMetadata(null, OnOrderDescriptionChanged));
 
         public bool IsSynchronized
         {
@@ -41,6 +41,11 @@ namespace WPF.Edu.Data
                                                                                                        typeof(bool),
                                                                                                        typeof(CollectionViewSourceExt),
                                                                                                        new PropertyMetadata(false, OnIsSynchronizedChanged));
+
+        public CollectionViewSourceExt()
+        {
+            Filter += OnFilter;
+        }
 
         protected override void OnSourceChanged(object oldSource, object newSource)
         {
@@ -54,6 +59,11 @@ namespace WPF.Edu.Data
             {
                 BindingOperations.EnableCollectionSynchronization(newEnumerable, _lock);
             }
+        }
+
+        private void OnFilter(object sender, FilterEventArgs e)
+        {
+            e.Accepted = FilterDescription?.Invoke(e.Item) ?? true;
         }
 
         private static void OnFilterDescriptionChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
@@ -82,11 +92,7 @@ namespace WPF.Edu.Data
 
         private void OnFilterDescriptionChanged(DependencyPropertyChangedEventArgs args)
         {
-            if (View != null && args.NewValue is Predicate<object> predicate)
-            {
-                View.Filter = predicate;
-                View.Refresh();
-            }
+            View?.Refresh();
         }
 
         private void OnOrderDescriptionChanged(DependencyPropertyChangedEventArgs args)
