@@ -123,6 +123,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\DependencyPropertyExtensions.cs" />
     <Compile Include="Behaviors\RoutedCommandBinding.cs" />
     <Compile Include="Behaviors\DataPipeBehavior.cs" />
