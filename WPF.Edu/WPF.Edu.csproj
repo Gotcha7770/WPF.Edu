@@ -161,6 +161,9 @@
     <Compile Include="Views\ThumbVsButtonView.xaml.cs">
       <DependentUpon>ThumbVsButtonView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewToFreezeApp.xaml.cs">
+      <DependentUpon>ViewToFreezeApp.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -222,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ThumbVsButtonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewToFreezeApp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
