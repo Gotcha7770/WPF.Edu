@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using EnumerableEx = System.Linq.EnumerableEx;
 
 namespace WPF.Edu.ViewModels
 {
@@ -71,28 +72,34 @@ namespace WPF.Edu.ViewModels
 
         private void SetChecked()
         {
-            CheckChildNodes(this, IsChecked.Value);
-            UpdateParentCheckedState(Parent);
+            CheckChildNodes(IsChecked.Value);
+            UpdateParentCheckedState();
         }
 
-        private static void CheckChildNodes(ITreeViewItemModel item, bool isChecked)
+        private void CheckChildNodes(bool value)
         {
-            item.IsChecked = isChecked;
-            foreach (var child in item.Children)
+            foreach(var item in EnumerableEx.Expand(Children, x => x.Children))
             {
-                CheckChildNodes(child, isChecked);
+                item.IsChecked = value;
             }
         }
 
-        private static void UpdateParentCheckedState(ITreeViewItemModel item)
+        private void UpdateParentCheckedState()
         {
-            if (item == null)
-                return;
+            var que = new Queue<ITreeViewItemModel>();
+            que.Enqueue(Parent);
 
-            item.IsChecked = item.Children.Select(x => x.IsChecked)
-                .Aggregate((acc, cur) => acc.HasValue && acc == cur ? cur : null);
+            while (que.Any())
+            {
+                ITreeViewItemModel item = que.Dequeue();
+                if(item != null)
+                {
+                    item.IsChecked = item.Children.Select(x => x.IsChecked)
+                        .Aggregate((acc, cur) => acc.HasValue && acc == cur ? cur : null);
 
-            UpdateParentCheckedState(item.Parent);
+                    que.Enqueue(item.Parent);
+                }
+            }
         }
     }
 }
