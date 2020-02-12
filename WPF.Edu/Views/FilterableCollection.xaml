@@ -16,8 +16,7 @@
             </DataTemplate>
 
             <CollectionViewSource x:Key="ItemsSource"
-                                  Source="{Binding Items}">
-            </CollectionViewSource>
+                                  Source="{Binding Items}"/>
 
             <data:CollectionViewSourceExt x:Key="ItemsSourceExt"
                                           Source="{Binding Items}"
