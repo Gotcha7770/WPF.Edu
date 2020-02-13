@@ -126,6 +126,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\FocusOnAction.cs" />
+    <Compile Include="Behaviors\MouseCaptureOnAction.cs" />
+    <Compile Include="Behaviors\SetMarginToControlPositionAction.cs" />
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\DependencyPropertyExtensions.cs" />
     <Compile Include="Behaviors\RoutedCommandBinding.cs" />
@@ -158,8 +161,8 @@
     <Compile Include="Views\TabControlView.xaml.cs">
       <DependentUpon>TabControlView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ThumbVsButtonView.xaml.cs">
-      <DependentUpon>ThumbVsButtonView.xaml</DependentUpon>
+    <Compile Include="Views\ThumbVsPopupView.xaml.cs">
+      <DependentUpon>ThumbVsPopupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewToFreezeApp.xaml.cs">
       <DependentUpon>ViewToFreezeApp.xaml</DependentUpon>
@@ -220,7 +223,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ThumbVsButtonView.xaml">
+    <Page Include="Views\ThumbVsPopupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
