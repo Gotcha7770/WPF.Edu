@@ -128,6 +128,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\FocusOnAction.cs" />
     <Compile Include="Behaviors\MouseCaptureOnAction.cs" />
+    <Compile Include="Behaviors\MultiSelectionBehavior.cs" />
     <Compile Include="Behaviors\SetMarginToControlPositionAction.cs" />
     <Compile Include="Infrastructure\NotifyTaskCompletion.cs" />
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
