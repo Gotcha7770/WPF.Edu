@@ -26,7 +26,6 @@ namespace WPF.Ext
                 new ResizerTest(),
                 new CommandTest(),
                 new ThumbVsButtonView(),
-                new DynamicListViewTest(),
                 new ViewToFreezeApp()
             };
 
