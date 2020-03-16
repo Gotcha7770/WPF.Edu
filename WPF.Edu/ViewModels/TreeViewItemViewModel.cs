@@ -1,4 +1,3 @@
-using DynamicData;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace WPF.Edu.ViewModels
     {
         bool? IsChecked { get; set; }
 
-        ICommand CheckedCommand { get; }
+        ICommand CheckCommand { get; }
     }
 
     public interface ITreeViewItemModel : ICheckable
@@ -33,12 +32,8 @@ namespace WPF.Edu.ViewModels
         {
             Value = value;
             Parent = parent;
-            Children = new ObservableCollection<ITreeViewItemModel>();
-
-            if (children != null && children.Any())
-                Children.AddRange(children);
-
-            CheckedCommand = ReactiveCommand.Create(SetChecked);
+            Children = new ObservableCollection<ITreeViewItemModel>(children ?? Enumerable.Empty<ITreeViewItemModel>());
+            CheckCommand = ReactiveCommand.Create(SetChecked);
 
             this.WhenAnyValue(x => x.IsChecked).Subscribe(x => SpecificLogic(x));
         }
@@ -67,7 +62,7 @@ namespace WPF.Edu.ViewModels
             }
         }
 
-        public ICommand CheckedCommand { get; }
+        public ICommand CheckCommand { get; }
 
 
         private void SetChecked()

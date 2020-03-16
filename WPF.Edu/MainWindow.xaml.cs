@@ -25,7 +25,7 @@ namespace WPF.Ext
                 new ControlsTestView(),
                 new ResizerTest(),
                 new CommandTest(),
-                new ThumbVsButtonView(),
+                new ThumbVsPopupView(),
                 new ViewToFreezeApp()
             };
 

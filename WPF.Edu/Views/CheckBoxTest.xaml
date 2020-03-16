@@ -12,7 +12,7 @@
 
         <HierarchicalDataTemplate DataType="{x:Type viewModels:TreeViewItemViewModelBase}" ItemsSource="{Binding Children}">
             <StackPanel Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding IsChecked}" Command="{Binding CheckedCommand}"/>
+                <CheckBox IsChecked="{Binding IsChecked}" Command="{Binding CheckCommand}"/>
                 <TextBlock Text="{Binding Value}"/>
             </StackPanel>
         </HierarchicalDataTemplate>
