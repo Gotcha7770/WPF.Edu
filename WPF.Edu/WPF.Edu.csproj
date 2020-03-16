@@ -130,6 +130,7 @@
     <Compile Include="Behaviors\MouseCaptureOnAction.cs" />
     <Compile Include="Behaviors\MultiSelectionBehavior.cs" />
     <Compile Include="Behaviors\SetMarginToControlPositionAction.cs" />
+    <Compile Include="Converters\CompositeConverter.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Infrastructure\NotifyTaskCompletion.cs" />
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
