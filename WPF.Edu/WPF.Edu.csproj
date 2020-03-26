@@ -142,6 +142,7 @@
     <Compile Include="Controls\ResizableControl.cs" />
     <Compile Include="Data\CollectionViewSourceExt.cs" />
     <Compile Include="Utils\WPFVisualHelper.cs" />
+    <Compile Include="ViewModels\DynamicDataExampleViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="Views\CheckBoxTest.xaml.cs">
@@ -152,6 +153,9 @@
     </Compile>
     <Compile Include="Views\ControlsTest.xaml.cs">
       <DependentUpon>ControlsTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DynamicDataExampleView.xaml.cs">
+      <DependentUpon>DynamicDataExampleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FilterableCollection.xaml.cs">
       <DependentUpon>FilterableCollection.xaml</DependentUpon>
@@ -208,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlsTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DynamicDataExampleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
