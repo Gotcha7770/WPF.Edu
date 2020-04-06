@@ -26,7 +26,8 @@ namespace WPF.Ext
                 new ResizerTest(),
                 new CommandTest(),
                 new ThumbVsPopupView(),
-                new ViewToFreezeApp()
+                new ViewToFreezeApp(),
+                new DynamicDataExampleView()
             };
 
             DeleteCommand = ReactiveCommand.Create<object>(parameter => CommandBinding_Executed(parameter, null));
