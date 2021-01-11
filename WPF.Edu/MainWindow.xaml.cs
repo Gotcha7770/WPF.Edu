@@ -12,8 +12,6 @@ namespace WPF.Ext
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<UserControl> ViewsCollection { get; }
-
         public MainWindow()
         {
             ViewsCollection = new ObservableCollection<UserControl>
@@ -35,7 +33,12 @@ namespace WPF.Ext
             InitializeComponent();
         }
 
+        public ObservableCollection<UserControl> ViewsCollection { get; }
+
         public ICommand DeleteCommand { get; }
+
+        public string FileHeader { get; } = "_File";
+        public string AboutHeader { get; } = "_About";
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {

@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace WPF.Edu.Views
 {
@@ -17,7 +16,8 @@ namespace WPF.Edu.Views
     {
         private Predicate<object> _filter;
         private IComparer _comparer;
-        //private readonly object _lock = new object();
+        private string _name;
+        private string _secondName;
 
         public FilterableCollectionView()
         {
@@ -37,8 +37,6 @@ namespace WPF.Edu.Views
                 "Text1",
                 "Text3"
             };
-
-            //Filter = FilterMethod;
 
             InitializeComponent();
 

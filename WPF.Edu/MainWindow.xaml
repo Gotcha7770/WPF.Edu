@@ -9,25 +9,26 @@
         Title="MainWindow">
 
     <Window.DataContext>
-        <Binding RelativeSource="{RelativeSource Self}"/>
+        <Binding RelativeSource="{RelativeSource Self}" />
     </Window.DataContext>
 
     <i:Interaction.Behaviors>
-        <behaviors:RoutedCommandBinding RoutedCommand="Delete" Command="{Binding DeleteCommand}"/>
+        <behaviors:RoutedCommandBinding RoutedCommand="Delete" Command="{Binding DeleteCommand}" />
     </i:Interaction.Behaviors>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <ListBox Name="Views" 
+        <ListBox Name="Views"
                  Width="300"
                  ItemsSource="{Binding ViewsCollection}"
-                 ItemTemplate="{StaticResource ViewItemTemplate}"/>
+                 ItemTemplate="{StaticResource ViewItemTemplate}" />
 
-        <ContentControl Grid.Column="1" Content="{Binding ElementName=Views, Path=SelectedValue}"/>
+        <ContentControl Grid.Row="1" Grid.Column="1"
+                        Content="{Binding ElementName=Views, Path=SelectedValue}" />
     </Grid>
-    
+
 </Window>
