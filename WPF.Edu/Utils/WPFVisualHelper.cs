@@ -14,6 +14,9 @@ namespace WPF.Edu.Utils
         public static T FindVisualParent<T>(this DependencyObject d, Func<T, bool> condition)
             where T : DependencyObject
         {
+            if (d is null)
+                return null;
+
             var item = VisualTreeHelper.GetParent(d);
 
             while (item != null)
