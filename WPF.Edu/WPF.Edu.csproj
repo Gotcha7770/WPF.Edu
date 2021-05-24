@@ -182,9 +182,6 @@
     <Compile Include="Views\ThumbVsPopupView.xaml.cs">
       <DependentUpon>ThumbVsPopupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ValidationTest.xaml.cs">
-      <DependentUpon>ValidationTest.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ViewToFreezeApp.xaml.cs">
       <DependentUpon>ViewToFreezeApp.xaml</DependentUpon>
     </Compile>
@@ -252,7 +249,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ValidationTest.xaml" />
     <Page Include="Views\ViewToFreezeApp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

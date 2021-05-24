@@ -1,8 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:WPF.Edu.Controls"
-                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-                    xmlns:behaviors="clr-namespace:WPF.Edu.Behaviors">
+                    xmlns:controls="clr-namespace:WPF.Edu.Controls">
 
     <Style x:Key="RightResizerThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -70,5 +68,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>
