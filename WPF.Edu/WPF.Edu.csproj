@@ -107,6 +107,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="XAMLMarkupExtensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c726e0262981a1eb">
+      <HintPath>..\packages\XAMLMarkupExtensions.2.0.0\lib\net48\XAMLMarkupExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.7.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -136,6 +140,9 @@
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\IsLasItemConverter.cs" />
     <Compile Include="Infrastructure\NotifyTaskCompletion.cs" />
+    <Compile Include="MarkupExtensions\FalseExtension.cs" />
+    <Compile Include="MarkupExtensions\TrueExtension.cs" />
+    <Compile Include="MarkupExtensions\TypeNameExtension.cs" />
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\DependencyPropertyExtensions.cs" />
     <Compile Include="Behaviors\RoutedCommandBinding.cs" />
@@ -174,6 +181,9 @@
     </Compile>
     <Compile Include="Views\ThumbVsPopupView.xaml.cs">
       <DependentUpon>ThumbVsPopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ValidationTest.xaml.cs">
+      <DependentUpon>ValidationTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewToFreezeApp.xaml.cs">
       <DependentUpon>ViewToFreezeApp.xaml</DependentUpon>
@@ -242,6 +252,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ValidationTest.xaml" />
     <Page Include="Views\ViewToFreezeApp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
