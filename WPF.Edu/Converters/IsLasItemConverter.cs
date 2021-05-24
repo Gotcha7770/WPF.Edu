@@ -6,23 +6,19 @@ using System.Windows.Data;
 
 namespace WPF.Edu.Converters
 {
-    public class IsLastItemConverter : IMultiValueConverter
+    public class IsLastItemConverter : IValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length < 2
-                || !(values[0] is ContentControl item)
-                || !(values[1] is int count))
-                return DependencyProperty.UnsetValue;
+            if (value is DependencyObject obj && ItemsControl.ItemsControlFromItemContainer(obj) is { } owner)
+            {
+                return owner.ItemContainerGenerator.IndexFromContainer(obj) == owner.Items.Count - 1;
+            }
 
-            ItemsControl owner = ItemsControl.ItemsControlFromItemContainer(item);
-            if (owner is null)
-                return DependencyProperty.UnsetValue;
-
-            return owner.ItemContainerGenerator.IndexFromContainer(item) == owner.Items.Count - 1;
+            return DependencyProperty.UnsetValue;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
