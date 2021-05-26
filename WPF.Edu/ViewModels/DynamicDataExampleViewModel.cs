@@ -1,9 +1,13 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Reactive.Linq;
 using System.Windows.Media;
 using DynamicData;
 using ReactiveUI;
+using Brush = System.Windows.Media.Brush;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
 
 namespace WPF.Edu.ViewModels
 {
@@ -11,7 +15,7 @@ namespace WPF.Edu.ViewModels
     {
         private readonly SourceCache<string, int> _sourceCache;
         private readonly IDisposable _disposable;
-        private ReadOnlyObservableCollection<SolidColorBrush> _brushes;
+        private ReadOnlyObservableCollection<Brush> _brushes;
 
         public DynamicDataExampleViewModel()
         {
@@ -19,12 +23,33 @@ namespace WPF.Edu.ViewModels
 
             _disposable = _sourceCache.Connect()
                 .ObserveOnDispatcher()
-                .Transform(x => new SolidColorBrush((Color)ColorConverter.ConvertFromString(x)))                
+                .Transform(x => (Brush)new SolidColorBrush((Color)ColorConverter.ConvertFromString(x)))
+                .StartWithItem(CreateDrawingBrush(), 123)
                 .Bind(out _brushes)
-                .Subscribe();            
-        }        
+                .Subscribe();
+        }
 
-        public ReadOnlyObservableCollection<SolidColorBrush> Brushes
+        private Brush CreateDrawingBrush()
+        {
+            var result = new DrawingBrush();
+
+            var group = new DrawingGroup();
+            var background = new ImageDrawing();
+            //var tile = new
+
+            // Bitmap bmp = new Bitmap(100, 100);
+            // Graphics g = Graphics.FromImage(bmp);
+            // g.Clear(Color.Green);
+
+            //group.Children.Add();
+
+
+            //result.Drawing = group;
+
+            return result;
+        }
+
+        public ReadOnlyObservableCollection<Brush> Brushes
         {
             get => _brushes;
         }

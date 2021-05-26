@@ -16,8 +16,8 @@ namespace WPF.Edu.Controls
 
         public const string ContentPresenterPartName = "PART_ContentPresenter";
         public const string ThumbPartName = "PART_Thumb";
-        protected FrameworkElement _contentPresenter;
-        protected FrameworkElement _thumb;
+        private FrameworkElement _contentPresenter;
+        private FrameworkElement _thumb;
 
         public double ContentWidth
         {
@@ -25,11 +25,10 @@ namespace WPF.Edu.Controls
             set { SetValue(ContentWidthProperty, value); }
         }
 
-        public static readonly DependencyProperty ContentWidthProperty =
-            DependencyProperty.Register("ContentWidth",
-                                        typeof(double),
-                                        typeof(ResizableControl),
-                                        new FrameworkPropertyMetadata(default(double), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentWidthChanged));
+        public static readonly DependencyProperty ContentWidthProperty = DependencyProperty.Register("ContentWidth",
+            typeof(double),
+            typeof(ResizableControl),
+            new FrameworkPropertyMetadata(default(double), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentWidthChanged));
 
         private static void OnContentWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -51,18 +50,20 @@ namespace WPF.Edu.Controls
             set { SetValue(ContentHeightProperty, value); }
         }
 
-        public static readonly DependencyProperty ContentHeightProperty =
-            DependencyProperty.Register("ContentHeight", typeof(double), typeof(ResizableControl), new FrameworkPropertyMetadata(OnContentHightChanged));
+        public static readonly DependencyProperty ContentHeightProperty = DependencyProperty.Register("ContentHeight",
+            typeof(double),
+            typeof(ResizableControl),
+            new FrameworkPropertyMetadata(default(double), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentHeightChanged));
 
-        private static void OnContentHightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnContentHeightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is ResizableControl resizer && e.NewValue is double value)
             {
-                resizer.OnContentHightChanged(value);
+                resizer.OnContentHeightChanged(value);
             }
         }
 
-        private void OnContentHightChanged(double value)
+        private void OnContentHeightChanged(double value)
         {
             if (IsInitialized)
                 _contentPresenter.Height = value;
@@ -74,9 +75,24 @@ namespace WPF.Edu.Controls
             set { SetValue(OrientationProperty, value); }
         }
 
-        public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ResizableControl), new PropertyMetadata());
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation",
+            typeof(Orientation),
+            typeof(ResizableControl),
+            new FrameworkPropertyMetadata(OnOrientationChanged));
 
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ResizableControl resizer)
+            {
+                resizer.OnOrientationChanged();
+            }
+        }
+
+        private void OnOrientationChanged()
+        {
+            if (IsInitialized)
+                OnApplyTemplate();
+        }
 
         static ResizableControl()
         {
@@ -115,16 +131,29 @@ namespace WPF.Edu.Controls
         {
             base.OnApplyTemplate();
 
+            var descriptor = Orientation == Orientation.Horizontal
+                ? DependencyPropertyExtensions.FromProperty<ContentControl>(ActualWidthProperty)
+                : DependencyPropertyExtensions.FromProperty<ContentControl>(ActualHeightProperty);
+
+            var handler = Orientation == Orientation.Horizontal
+                ? new EventHandler(OnContentActualWidthChanged)
+                : new EventHandler(OnContentActualHeightChanged);
+
+            if (_contentPresenter != null)
+                descriptor.RemoveValueChanged(_contentPresenter, handler);
+
             _contentPresenter = GetTemplateChild(ContentPresenterPartName) as FrameworkElement;
             _thumb = GetTemplateChild(ThumbPartName) as FrameworkElement;
 
-            var widthDescriptor = DependencyPropertyExtensions.FromProperty<ContentControl>(ActualWidthProperty);
-            widthDescriptor.AddValueChanged(_contentPresenter, OnContentActualWidthChanged);
+            if (_contentPresenter != null)
+            {
+                descriptor.AddValueChanged(_contentPresenter, handler);
 
-            if (ContentWidth > 0)
-                _contentPresenter.Width = ContentWidth;
-            if (ContentHeight > 0)
-                _contentPresenter.Height = ContentHeight;
+                if (ContentWidth > 0)
+                    _contentPresenter.Width = ContentWidth;
+                if (ContentHeight > 0)
+                    _contentPresenter.Height = ContentHeight;
+            }
         }
 
         protected override void OnTemplateChanged(ControlTemplate oldTemplate, ControlTemplate newTemplate)
@@ -133,12 +162,21 @@ namespace WPF.Edu.Controls
         }
 
         private void OnContentActualWidthChanged(object sender, EventArgs e)
-        {           
+        {
             var binding = BindingOperations.GetBindingExpression(this, ContentWidthProperty);
             if (binding != null) //BindingMode == TwoWay???
             {
                 ContentWidth = _contentPresenter.ActualWidth;
-            }            
-        }        
+            }
+        }
+
+        private void OnContentActualHeightChanged(object sender, EventArgs e)
+        {
+            var binding = BindingOperations.GetBindingExpression(this, ContentHeightProperty);
+            if (binding != null) //BindingMode == TwoWay???
+            {
+                ContentHeight = _contentPresenter.ActualHeight;
+            }
+        }
     }
 }

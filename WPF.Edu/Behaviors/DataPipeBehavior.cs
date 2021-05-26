@@ -8,21 +8,21 @@ namespace WPF.Edu.Behaviors
 {
     public class DataPipeBehavior : Behavior<FrameworkElement>
     {
+        private Type _associatedType;
+        private DependencyPropertyDescriptor _descriptor;
+
         public string Source { get; set; }
+
+        public static readonly DependencyProperty TargetProperty = DependencyProperty.Register("Target",
+            typeof(object),
+            typeof(DataPipeBehavior),
+            new FrameworkPropertyMetadata());
 
         public object Target
         {
             get { return GetValue(TargetProperty); }
             set { SetValue(TargetProperty, value); }
         }
-
-        public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register("Target",
-                                        typeof(object),
-                                        typeof(DataPipeBehavior),
-                                        new FrameworkPropertyMetadata());
-        private Type _associatedType;
-        private DependencyPropertyDescriptor _descriptor;
 
         protected override void OnAttached()
         {

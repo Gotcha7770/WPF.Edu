@@ -32,18 +32,9 @@
                                HorizontalAlignment="Center"/>
                 </Border>
             <DataTemplate.Triggers>
-                <!-- <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource IsLastItemConverter}}" Value="True"> -->
-                <!--     <Setter TargetName="Border" Property="Background" Value="Red"/> -->
-                <!-- </DataTrigger> -->
-                <DataTrigger Value="True">
-                    <DataTrigger.Binding>
-                        <MultiBinding Converter="{StaticResource IsLastItemConverter}">
-                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=ContentControl}" />
-                            <Binding Path="Items.Count" RelativeSource="{RelativeSource FindAncestor, AncestorType=ItemsControl}" />
-                        </MultiBinding>
-                    </DataTrigger.Binding>
-                    <Setter TargetName="Border" Property="Background" Value="Red"/>
-                </DataTrigger>
+                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource IsLastItemConverter}}" Value="True"> 
+                     <Setter TargetName="Border" Property="Background" Value="Red"/> 
+                 </DataTrigger>                 
             </DataTemplate.Triggers>
         </DataTemplate>
 
