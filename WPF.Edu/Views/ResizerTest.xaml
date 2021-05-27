@@ -38,7 +38,8 @@
             <DataTemplate x:Key="VerticalTestVMTemplate" DataType="viewModels:TestViewModel">
                 <controls:ResizableControl Orientation="Vertical"
                                            ContentHeight="{Binding Height}">
-                    <Border x:Name="Border" Background="LightBlue"
+                    <Border x:Name="Border"
+                            Background="DodgerBlue"
                             Width="100">
                         <TextBlock Text="{Binding Name}"
                                    VerticalAlignment="Top"
@@ -46,6 +47,26 @@
                     </Border>
                 </controls:ResizableControl>
             </DataTemplate>
+
+            <Style x:Key="VerticalThumb" TargetType="Thumb">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Cursor" Value="SizeWE"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="HorizontalThumb" TargetType="Thumb">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Cursor" Value="SizeNS"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
         </ResourceDictionary>
     </UserControl.Resources>
@@ -64,10 +85,10 @@
 
         <Border Background="Orange"/>
 
-        <GridSplitter x:Name="VerticalSplitter"
-                      Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
-                      HorizontalAlignment="Center"
-                      Width="4"/>
+        <Thumb x:Name="VerticalSplitter"
+               Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+               Style="{StaticResource VerticalThumb}"
+               Width="4"/>
 
         <StackPanel x:Name="HorizontalList"
                     Grid.Column="2"
@@ -79,7 +100,6 @@
                      Background="Aqua"
                      BorderBrush="Red"
                      BorderThickness="2"
-                     ItemTemplate="{StaticResource VerticalTestVMTemplate}"
                      ItemsSource="{Binding Items}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -91,30 +111,53 @@
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     </Style>
                 </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="viewModels:TestViewModel">
+                        <ContentControl Content="{Binding}">
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource VerticalTestVMTemplate}" />
+
+                                    <!-- Triggers to change Template -->
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource IsLastItemConverter}}" Value="True">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate DataType="viewModels:TestViewModel">
+                                                        <controls:ResizableControl x:Name="HorizontalResizer"
+                                                            Orientation="Vertical"
+                                                            ContentHeight="{Binding Height}">
+                                                            <Border x:Name="Border"
+                                                                    Background="DodgerBlue"
+                                                                    Width="100">
+                                                                <TextBlock Text="{Binding Name}"
+                                                                           VerticalAlignment="Top"
+                                                                           HorizontalAlignment="Center" />
+                                                            </Border>
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="DragDelta" SourceObject="{Binding ElementName=HorizontalSplitter}">
+                                                                    <i:CallMethodAction TargetObject="{Binding ElementName=HorizontalResizer}" MethodName="Move"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </controls:ResizableControl>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
-            <!-- <ListBox Background="Aqua" -->
-            <!--          BorderBrush="Red" -->
-            <!--          BorderThickness="2" -->
-            <!--          ItemTemplate="{StaticResource VerticalTestVMTemplate}" -->
-            <!--          ItemsSource="{Binding Items}"> -->
-            <!--     <ListBox.ItemContainerStyle> -->
-            <!--         <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}"> -->
-            <!--             <Setter Property="HorizontalContentAlignment" Value="Stretch" /> -->
-            <!--         </Style> -->
-            <!--     </ListBox.ItemContainerStyle> -->
-            <!--     <ListBox.ItemsPanel> -->
-            <!--         <ItemsPanelTemplate> -->
-            <!--             <StackPanel IsItemsHost="True" Margin="10" /> -->
-            <!--         </ItemsPanelTemplate> -->
-            <!--     </ListBox.ItemsPanel> -->
-            <!-- </ListBox> -->
 
         </StackPanel>
 
-        <GridSplitter x:Name="HorizontalSplitter"
-                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                      HorizontalAlignment="Stretch"
-                      Height="4"/>
+        <Thumb x:Name="HorizontalSplitter"
+               Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+               Style="{StaticResource HorizontalThumb}"
+               Height="4"/>
 
         <StackPanel x:Name="VerticalList"
                     Grid.Row="2"
@@ -159,15 +202,11 @@
                                                                            VerticalAlignment="Top"
                                                                            HorizontalAlignment="Center" />
                                                             </Border>
-                                                            <i:Interaction.Behaviors>
-                                                                <behaviors:HandleEventBehavior EventName="DragStarted" Source="{Binding ElementName=VerticalSplitter}"/>
-                                                                <behaviors:HandleEventBehavior EventName="DragDelta" Source="{Binding ElementName=VerticalSplitter}"/>
-                                                            </i:Interaction.Behaviors>
-                                                            <!-- <i:Interaction.Triggers> -->
-                                                            <!--     <i:EventTrigger EventName="DragDelta" SourceObject="{Binding ElementName=VerticalSplitter}"> -->
-                                                            <!--         <i:CallMethodAction TargetObject="{Binding ElementName=VerticalResizer}" MethodName="Move"/> -->
-                                                            <!--     </i:EventTrigger> -->
-                                                            <!-- </i:Interaction.Triggers> -->
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="DragDelta" SourceObject="{Binding ElementName=VerticalSplitter}">
+                                                                    <i:CallMethodAction TargetObject="{Binding ElementName=VerticalResizer}" MethodName="Move"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
                                                         </controls:ResizableControl>
                                                     </DataTemplate>
                                                 </Setter.Value>
@@ -177,40 +216,9 @@
                                 </Style>
                             </ContentControl.Style>
                         </ContentControl>
-                        <!-- <controls:ResizableControl x:Name="VerticalResizer" ContentWidth="{Binding Width}"> -->
-                        <!--     <Border x:Name="Border" -->
-                        <!--             Background="DodgerBlue" -->
-                        <!--             VerticalAlignment="Stretch"> -->
-                        <!--         <TextBlock Text="{Binding Name}" -->
-                        <!--                    VerticalAlignment="Top" -->
-                        <!--                    HorizontalAlignment="Center" /> -->
-                        <!--     </Border> -->
-                        <!--     <i:Interaction.Triggers> -->
-                        <!--         <i:EventTrigger EventName="DragDelta" SourceObject="{Binding ElementName=VerticalSplitter}"> -->
-                        <!--             <i:CallMethodAction TargetObject="{Binding ElementName=VerticalResizer}" MethodName="Move"/> -->
-                        <!--         </i:EventTrigger> -->
-                        <!--     </i:Interaction.Triggers> -->
-                        <!-- </controls:ResizableControl> -->
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <!--<ListBox HorizontalAlignment="Left"
-                 Background="Aqua"
-                 BorderBrush="Red"
-                 BorderThickness="2"
-                 ItemTemplate="{StaticResource HorizontalTestVMTemplate}"
-                 ItemsSource="{Binding Items}">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel IsItemsHost="True" Orientation="Horizontal" Margin="10" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>-->
         </StackPanel>
 
         <Border Grid.Row="2" Grid.Column="2"/>

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Windows;
-using System.Windows.Controls;
 using Microsoft.Xaml.Behaviors;
 
 namespace WPF.Edu.Behaviors
@@ -36,21 +34,14 @@ namespace WPF.Edu.Behaviors
         {
             base.OnAttached();
 
-            //var sourceType = DependencyObjectType.FromSystemType(Source.GetType());
             var sourceType = Source.GetType();
-            //var targetType = DependencyObjectType.FromSystemType(AssociatedObject.GetType());
             var targetType = AssociatedObject.GetType();
 
-            var sourceEvent = EventManager.GetRoutedEvents()
-                .Where(x => sourceType.IsSubclassOf(x.OwnerType))
-                .FirstOrDefault(x => x.Name == EventName);
+            var sourceEvent = sourceType.GetEvent(EventName);
 
-            if (sourceEvent != null)
-            {
-                var eventInfo = sourceEvent.OwnerType.GetEvent(EventName);
-                eventInfo.RemoveEventHandler(Source, GetEventHandler(sourceType, eventInfo));
-                eventInfo.AddEventHandler(Source, GetEventHandler(targetType, eventInfo));
-            }
+            var method = targetType.GetMethod("Move");
+            var newHandler = Delegate.CreateDelegate(sourceEvent.EventHandlerType, AssociatedObject, method);
+            sourceEvent.AddEventHandler(Source, newHandler);
         }
 
         private Delegate GetEventHandler(Type ownerType, EventInfo eventInfo)

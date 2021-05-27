@@ -127,6 +127,16 @@ namespace WPF.Edu.Controls
             _startPoint = currentPoint;
         }
 
+        public void Move(object sender, DragDeltaEventArgs args)
+        {
+            if (Orientation == Orientation.Horizontal)
+                _contentPresenter.Width = Math.Max(0, _contentPresenter.ActualWidth + args.HorizontalChange);
+            else
+                _contentPresenter.Height = Math.Max(0, _contentPresenter.ActualHeight + args.VerticalChange);
+
+            args.Handled = true;
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
