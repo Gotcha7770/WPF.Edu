@@ -22,7 +22,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Nullable>disable</Nullable>
-    <LangVersion>8</LangVersion>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -153,9 +153,11 @@
     <Compile Include="Controls\ResizableControl.cs" />
     <Compile Include="Data\CollectionViewSourceExt.cs" />
     <Compile Include="Utils\WPFVisualHelper.cs" />
+    <Compile Include="ValidationRules\StringLengthValidationRule.cs" />
     <Compile Include="ViewModels\DynamicDataExampleViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
+    <Compile Include="ViewModels\ValidationExampleViewModel.cs" />
     <Compile Include="Views\CheckBoxTest.xaml.cs">
       <DependentUpon>CheckBoxTest.xaml</DependentUpon>
     </Compile>
@@ -182,6 +184,9 @@
     </Compile>
     <Compile Include="Views\ThumbVsPopupView.xaml.cs">
       <DependentUpon>ThumbVsPopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ValidationExampleView.xaml.cs">
+      <DependentUpon>ValidationExampleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewToFreezeApp.xaml.cs">
       <DependentUpon>ViewToFreezeApp.xaml</DependentUpon>
@@ -250,6 +255,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ValidationExampleView.xaml" />
     <Page Include="Views\ViewToFreezeApp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
