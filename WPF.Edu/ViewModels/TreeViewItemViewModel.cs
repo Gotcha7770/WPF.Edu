@@ -35,7 +35,7 @@ namespace WPF.Edu.ViewModels
             Children = new ObservableCollection<ITreeViewItemModel>(children ?? Enumerable.Empty<ITreeViewItemModel>());
             CheckCommand = ReactiveCommand.Create(SetChecked);
 
-            this.WhenAnyValue(x => x.IsChecked).Subscribe(x => SpecificLogic(x));
+            this.WhenAnyValue(x => x.IsChecked).Subscribe(SpecificLogic);
         }
 
         protected virtual void SpecificLogic(bool? value)
@@ -52,14 +52,7 @@ namespace WPF.Edu.ViewModels
         public bool? IsChecked
         {
             get => _isChecked;
-            set
-            {
-                if (_isChecked != value)
-                {
-                    _isChecked = value;
-                    this.RaisePropertyChanged();
-                }
-            }
+            set => this.RaiseAndSetIfChanged(ref _isChecked, value);
         }
 
         public ICommand CheckCommand { get; }
@@ -73,27 +66,44 @@ namespace WPF.Edu.ViewModels
 
         private void CheckChildNodes(bool value)
         {
-            foreach(var item in EnumerableEx.Expand(Children, x => x.Children))
+            foreach(var item in Children.Expand(x => x.Children))
             {
                 item.IsChecked = value;
             }
         }
 
+        private IEnumerable<ITreeViewItemModel> EnumerateParents()
+        {
+            var parent = Parent;
+
+            while (parent is not null)
+            {
+                yield return parent;
+                parent = parent.Parent;
+            }
+        }
+
         private void UpdateParentCheckedState()
         {
-            var que = new Queue<ITreeViewItemModel>();
-            que.Enqueue(Parent);
+            // var que = new Queue<ITreeViewItemModel>();
+            // que.Enqueue(Parent);
+            //
+            // while (que.Any())
+            // {
+            //     ITreeViewItemModel item = que.Dequeue();
+            //     if(item != null)
+            //     {
+            //         item.IsChecked = item.Children.Select(x => x.IsChecked)
+            //             .Aggregate((acc, cur) => acc.HasValue && acc == cur ? cur : null);
+            //
+            //         que.Enqueue(item.Parent);
+            //     }
+            // }
 
-            while (que.Any())
+            foreach (var parent in EnumerateParents())
             {
-                ITreeViewItemModel item = que.Dequeue();
-                if(item != null)
-                {
-                    item.IsChecked = item.Children.Select(x => x.IsChecked)
-                        .Aggregate((acc, cur) => acc.HasValue && acc == cur ? cur : null);
-
-                    que.Enqueue(item.Parent);
-                }
+                parent.IsChecked = parent.Children.Select(x => x.IsChecked)
+                    .Aggregate((acc, cur) => acc.HasValue && acc == cur ? cur : null);
             }
         }
     }

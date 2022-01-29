@@ -94,7 +94,7 @@
                     Grid.Column="2"
                     VerticalAlignment="Top">
             <i:Interaction.Behaviors>
-                <behaviors:DataPipeBehavior Target="{Binding ElementName=FirstRow, Path=Height, Mode=OneWayToSource}" Source="ActualHeight" />
+                <behaviors:DataPipeBehavior Target="{Binding ElementName=FirstRow, Path=Height, Mode=OneWayToSource}" FromProperty="ActualHeight" />
             </i:Interaction.Behaviors>
             <ListBox VerticalAlignment="Top"
                      Background="Aqua"
@@ -164,7 +164,7 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Left">
             <i:Interaction.Behaviors>
-                <behaviors:DataPipeBehavior Target="{Binding ElementName=FirstColumn, Path=Width, Mode=OneWayToSource}" Source="ActualWidth" />
+                <behaviors:DataPipeBehavior Target="{Binding ElementName=FirstColumn, Path=Width, Mode=OneWayToSource}" FromProperty="ActualWidth" />
             </i:Interaction.Behaviors>
             <ListBox HorizontalAlignment="Left"
                      Background="Aqua"
